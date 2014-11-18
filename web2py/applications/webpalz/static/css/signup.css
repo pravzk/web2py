@@ -1,0 +1,10 @@
+.MyBorderAround1 {
+	border: 1px solid #660000;
+}
+.MyBorderAround2 {
+	border: 1px solid #CC0000;
+}
+
+body{
+background-image: -moz-linear-gradient(bottom, #F8B500 0%, #FBDF93 100%);
+}

@@ -1,0 +1,40 @@
+<html>
+	<head>
+	
+		<title>
+			Webpalz
+		</title>
+        <link rel="stylesheet" type="text/css" href="{{=URL('static', 'css/index.css')}}"/>
+        <script language="JavaScript" type="text/javascript">
+function al()
+{
+	{{if session.ral:}}
+		alert("{{=session.ral}}");
+		{{session.ral=None}}
+	{{pass}}
+	
+}
+</script>
+	</head>
+	<body onload="al()"> 
+
+             <div id="logo">
+             	<img src="{{=URL('static', 'images/webpalzn.jpg')}}" alt="" height="150" width="300"/>
+             </div>
+             
+             <div id="credentials">
+                 <form method="post" action="{{=URL('home')}}">
+             	<table align="center" id="cred">
+			<tr><td colspan="2" align="center">Go palz go..!!</td></tr>
+			<tr> <td align="right"> UserID:</td> <td> <input type="text" name="txtUserID" required</td>  </tr>
+			<tr> <td align="right"> Password:</td> <td> <input type="password" name="txtPassword" required></td>  </tr>
+			<tr> <td></td> <td><input type="image" src="{{=URL('static', 'images/go.jpg')}}" name="go"><a href="{{=URL('signup')}}"><img src="{{=URL('static', 'images/join.jpg')}}" alt=""/></a></td>  </tr>
+			<tr> <td></td> <td><a href="{{=URL('forgotPassword')}}" id="fp">Forgot Password?</a></td>  </tr>
+             	</table>
+             	</form>
+	     </div>
+	     <div id="footerimg" >
+	      
+	     </div>
+	</body>
+</html>

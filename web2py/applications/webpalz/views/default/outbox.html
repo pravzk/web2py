@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <title>Webpalz</title>
+        <link rel="stylesheet" type="text/css" href="{{=URL('static', 'css/home.css')}}"/>
+    </head>
+    <body>
+         {{user=db(db.User.userID==session.userID).select().first()}}
+           <table width="759" border="0" align="center" cellpadding="0" cellspacing="0">
+ 		<tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="80" align="left" valign="bottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="right" valign="top" colspan="2"><img src="{{=URL('static', 'images/webpalzn.jpg')}}" width="150" height="70" /></td>
+            
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td  width="80%" align="left" valign="top" height="50"><form action="{{=URL('searchFriends')}}" method="post">&nbsp;&nbsp; <input type="text" name="txtSearch" placeholder="Search Friends"/><input type="submit" value="search"/></form></td>
+            <td  width="20%" align="middle" valign="top"><a href="{{=URL('home')}}">Home</a>&nbsp;&nbsp;<a href="{{=URL('Logout')}}">Logout</a></td>
+          </tr>
+        </table></td>
+      </tr>
+      </table>
+      
+      <table width="759" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+ 		<tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      
+      <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td  width="80%" align="left" valign="top">&nbsp;</td>
+            <td  width="20%" align="left" valign="top">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        {{
+           if not user.image:
+         }}
+	 	<td height="575" width="30%" align="left" valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{=URL('static', 'images/default.jpeg')}}" alt="" width="125" height="150"/>
+         {{  pass
+       
+           else:
+         }}
+		<td height="575" width="30%" align="left" valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{=URL('download', args=user.image)}}" alt="" width="125" height="150"/><br/>
+           {{pass
+         }}
+      
+         
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{=user.firstName}} {{=user.lastName}}
+                    
+                    <ul style="list-style-type:none">
+                    <li>
+                        <a href="{{=URL('changeImage',args=user.userID)}}">Change profile picture</a>
+                    </li>
+                    
+                     <li>
+                        <a href="{{=URL('editProfile',args=user.userID)}}">Edit profile</a>
+                    </li>
+                    
+                     <li>
+                        <a href="{{=URL('createAlbum',args=user.userID)}}">Album</a>
+                    </li>
+                    
+                    <li>
+                         <a href="{{=URL('sendMessage',args=user.userID)}}">Send Message</a>
+                    </li>
+                    
+                    <li>
+                        <a href="{{=URL('inbox',args=user.userID)}}">Inbox</a>
+                    </li>
+                    
+                     <li>
+                        <a href="{{=URL('outbox',args=user.userID)}}">Outbox</a>
+                    </li>
+                    
+                     <li>
+                        <a href="{{=URL('viewFriendRequests')}}">Friend requests</a>
+                    </li>
+                </ul>
+                    </td>
+            <td height="575" width="70%" align="left" valign="top" style="border-left:0.5px solid #86B404" >
+
+			<div style="padding:0 0 0 10px;font-size:13px;">
+            	
+		<h2>Outbox</h2>
+            	{{
+			for message in messages:
+				
+		}}
+				                      
+							<a href="{{=URL('outboxDisplay',args=message.id)}}"> 
+								<table>
+									<tr style="margin:0 0 0 20px;background-color:#fceabb;">
+										<td width="100px" >
+										{{mto=db(db.User.userID==message.mTo).select().first()}}
+											{{=mto.firstName}}
+									 	</td>
+										<td width="200px">
+											
+											
+											{{if len(message.body) < 20:}}
+												{{=message.body}}
+												
+											{{else:}}
+												{{=message.body[0:20]}}...		
+												{{pass}}
+											
+											
+									 	</td>
+										<td width="100px">
+											{{=message.messageSentOn}}
+									 	</td>
+									</tr>
+								</table>
+							</a>
+						
+            
+            {{pass}}
+            
+            </div></td>
+          </tr>
+        </table></td>
+      </tr>
+      
+    </table></td>
+  </tr>
+    </table></td>
+  </tr>
+            </table>
+    </body>
+    
+</html>

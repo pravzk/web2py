@@ -1,0 +1,228 @@
+<html>
+    <head>
+      
+	{{user=db(db.User.userID==session.userID).select().first()}}
+	 {{friend=db(db.User.userID==session.friendID).select().first()}} 
+        <title>{{=friend.firstName}} {{=friend.lastName}}</title>
+        <link rel="stylesheet" type="text/css" href="{{=URL('static', 'css/home.css')}}"/>
+    </head>
+    <body>
+         
+           <table width="759" border="0" align="center" cellpadding="0" cellspacing="0">
+ 		<tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="80" align="left" valign="bottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="right" valign="top" colspan="2"><img src="{{=URL('static', 'images/webpalzn.jpg')}}" width="150" height="70" /></td>
+            
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td  width="80%" align="left" valign="top" height="50"><form action="{{=URL('searchFriends')}}" method="post">&nbsp;&nbsp; <input type="text" name="txtSearch" placeholder="Search Friends"/><input type="submit" value="search"/></form></td>
+            <td  width="20%" align="middle" valign="top"><a href="{{=URL('home')}}">Home</a>&nbsp;&nbsp;<a href="{{=URL('Logout')}}">Logout</a></td>
+          </tr>
+        </table></td>
+      </tr>
+      </table>
+      
+      <table width="759" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+ 		<tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      
+      <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td  width="80%" align="left" valign="top">&nbsp;</td>
+            <td  width="20%" align="left" valign="top">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        {{
+           if not friend.image:
+         }}
+	 	<td height="575" width="30%" align="left" valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{=URL('static', 'images/default.jpeg')}}" alt="" width="125" height="150"/>
+         {{  pass
+       
+           else:
+         }}
+		<td height="575" width="30%" align="left" valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{=URL('download', args=friend.image)}}" alt="" width="125" height="150"/><br/>
+           {{pass
+         }}
+      
+         
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{=friend.firstName}} {{=friend.lastName}}
+                    
+                    <ul style="list-style-type:none">
+                   
+                     <li>
+                        <a href="">View profile</a>
+                    </li>
+                    
+			{{
+				isfriend= (db((db.Friends.friend==friend.userID)&(db.Friends.userID==session.userID)).select().first()) or (db((db.Friends.friend==session.userID)&(db.Friends.userID==friend.userID)).select().first())
+
+				if isfriend and isfriend.addRequestStatus==str(1):
+					
+			}}
+
+			     <li>
+			        <a href="{{=URL('viewFriendAlbum',args=user.userID)}}"> View Album</a>
+			    </li>
+
+{{else:
+	if isfriend and isfriend.addRequestStatus==str(0) and isfriend.friend==session.userID:}}
+			<li>
+	      			<a href="{{=URL('acceeptFriendRequests',args=isfriend.id)}}">Accept Friend Request</a>
+	    		</li>
+	{{elif isfriend and isfriend.addRequestStatus==str(0):}}
+		<li>
+	      			<a href="">Friend Request Sent</a>
+	    		</li>			
+	{{else:}}
+	     <li>
+	        <a href="{{=URL('addFriend')}}">Add Friend</a>
+	    </li>
+
+		
+	{{pass}}
+{{pass}}
+                </ul>
+                    </td>
+           
+
+<td height="575" width="70%" align="left" valign="top" style="border-left:0.5px solid #86B404" ><div style="padding:0 0 0 10px;font-size:13px;font-style:italic">
+
+<table style="margin:0 0 0 40px" width="400px" border="0" cellspacing="1" cellpadding="2">
+                      
+                     
+                      <tr>
+                        <td height="25" colspan="2" align="left" valign="middle" bgcolor="#FFFFCC"><strong><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">Personal  Details </font></strong></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">First Name </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].firstName}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Last Name </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].lastName}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Gender</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].gender}}</font></td>
+                      </tr>
+                     <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Date Of Birth </font></td>
+                      <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].dateOfBirth}}</font></td>   </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Relationship  Status </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].relationshipStatus}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">City</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].city}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">State</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].state}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Country</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].country}}</font></td>
+                      </tr>
+                     
+                        <tr>
+                        <td height="25" colspan="2" align="left" valign="middle" bgcolor="#FFFFCC"><strong><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">Educational Details </font></strong></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Schooling</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].school}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif"> </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                       <font size="2" face="Arial, Helvetica, sans-serif">From: {{=fd[0].schoolFrom}} </font>
+                          
+
+                       
+                       <font size="2" face="Arial, Helvetica, sans-serif">To: {{=fd[0].schoolTo}} </font>
+                          </td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Twelth</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].twelth}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif"> </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                       <font size="2" face="Arial, Helvetica, sans-serif">From: {{=fd[0].twelthFrom}} </font>
+                          
+                       <font size="2" face="Arial, Helvetica, sans-serif">To: {{=fd[0].twelthTo}} </font>
+                          </td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">UG</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].ug}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif"> </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                        <font size="2" face="Arial, Helvetica, sans-serif">From: {{=fd[0].ugFrom}} </font>
+                         
+                       <font size="2" face="Arial, Helvetica, sans-serif">To: {{=fd[0].ugTo}} </font>
+                          </td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">PG</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].pg}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif"> </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                        <font size="2" face="Arial, Helvetica, sans-serif">From: {{=fd[0].pgFrom}} </font>
+                         
+                       <font size="2" face="Arial, Helvetica, sans-serif">To: {{=fd[0].pgTo}} </font>
+                         </td>
+                      </tr>
+                      <tr>
+                        <td height="25" colspan="2" align="left" valign="middle" bgcolor="#FFFFCC"><strong><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">Interests </font></strong></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Books</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].book}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Sports</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].sport}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Music</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].music}}</font></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Movies</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">{{=fd[0].movie}}</font></td>
+                      </tr>
+                       
+                  </table>
+
+		
+		</td>
+          </tr>
+        </table></td>
+      </tr>
+      
+    </table></td>
+  </tr>
+    </table></td>
+  </tr>
+            </table>
+    </body>
+    
+</html>

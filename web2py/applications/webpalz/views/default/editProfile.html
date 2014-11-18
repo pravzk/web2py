@@ -1,0 +1,515 @@
+
+<html>
+<head>
+<title> Register</title>
+<link href="{{=URL('static', 'css/home.css')}}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+
+
+.MyLocalLink1 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#0000CC;
+	text-decoration:none;
+}
+.MyLocalLink1:hover {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#FF6600;
+	text-decoration:underline;
+}
+.MyMembersLink {	
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color:#FF6600;
+	text-decoration: none;
+}
+.MyBorderAround3 {
+	border: 1px solid orange;
+}
+
+</style>
+
+<script language="JavaScript" type="text/javascript">
+function validate () {
+	var m=document.frmLogin.ddlMonth.value;
+	var d=document.frmLogin.ddlDay.value;
+	var y=document.frmLogin.ddlYear.value;
+	if(document.frmLogin.txtPassword.value.length<8)
+	{
+		alert("Password should have atleast 8 characters");
+  		return false;
+	}
+	if (document.frmLogin.txtPassword.value != document.frmLogin.txtRetypePassword.value)
+	{	
+		alert("Passwords should match");
+		document.frmLogin.txtRetypePassword.focus();
+		return false;
+	}
+	if (document.frmLogin.txtHintAnswer.value != document.frmLogin.txtRetypeHintAnswer.value)
+	{
+		alert("Hint Answers should match");
+		document.frmLogin.txtRetypeHintAnswer.focus();
+		return false;
+	}  
+	var composedDate = new Date(y, m-1, d);
+    	var valid= composedDate.getDate() == d && composedDate.getMonth() == (m-1) && composedDate.getFullYear() == y;
+	if(!valid)
+	{
+		alert("Enter Valid Date Of Birth"); 
+		document.frmLogin.ddlMonth.focus();
+  		return false;
+	} 
+	return true;
+}
+</script>
+
+</head>
+
+<body leftmargin="0" topmargin="20" marginwidth="0" marginheight="0">
+
+           <table width="759" border="0" align="center" cellpadding="0" cellspacing="0">
+ 		<tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="80" align="left" valign="bottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="right" valign="top" colspan="2"><img src="{{=URL('static', 'images/webpalzn.jpg')}}" width="150" height="70" /></td>
+            
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td  width="80%" align="left" valign="top" height="50"><form>&nbsp;&nbsp; <input type="text" placeholder="Search Friends"/><input type="submit" value="search"/></form></td>
+            <td  width="20%" align="middle" valign="top"><a href="{{=URL('home')}}">Home</a>&nbsp;&nbsp;<a href="{{=URL('Logout')}}">Logout</a></td>
+          </tr>
+        </table></td>
+      </tr>
+      </table>
+<table width="759" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="MyBorderAround1">
+ 		<tr>
+    <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      
+      <td width="1010" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td  width="80%" align="left" valign="top">&nbsp;</td>
+            <td  width="20%" align="left" valign="top">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+  <tr>
+    <td align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="left" valign="top">&nbsp;</td>
+        </tr>
+      <tr>
+        <td width="22%" align="left" valign="top"><table width="757" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="30" align="left" valign="top">&nbsp;</td>
+            <td width="735" align="left" valign="top"><form id="form1" name="frmLogin" method="post" action="{{=URL('editProfileChanges')}}" onsubmit="return validate()">
+              <table width="600" border="0" cellpadding="0" cellspacing="1" class="MyBorderAround3">
+                <tr>
+                  <td height="25" align="left" valign="middle" bgcolor="#86b404"><strong><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif">&nbsp;Edit Profile </font></strong></td>
+                </tr>
+                <tr>
+                  <td align="left" valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="2">
+                      <tr>
+                        <td height="25" colspan="2" align="left" valign="middle" bgcolor="#FFFFCC"><strong><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">Login Information </font></strong></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Email</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">{{=ud[0].userID}}</td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Password</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="password" name="txtPassword" value="{{=ul[0].password}}" required /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Re-type Password </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="password" name="txtRetypePassword" value="{{=ul[0].password}}" required/></td>
+                      </tr>
+                      <tr>
+                        <td height="25" colspan="2" align="left" valign="middle" bgcolor="#FFFFCC"><strong><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">Password Reminder Information </font></strong></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Hint Question </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><select name="ddlHintQuestion" required>
+                        <option value="">Select</option>
+                        {{if ud[0].hintQuestion=="What is your mother's maiden name?":}}
+                        <option value="What is your mother's maiden name?" selected>What is your mother's maiden name?</option>
+                        {{else:}}
+                         <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                         {{pass}}
+                        {{if ud[0].hintQuestion=="What is your dad's favourite sport?":}}
+                        <option value="What is your dad's favourite sport?" selected>What is your dad's favourite sport?</option>
+                        {{else:}}
+                         <option value="What is your dad's favourite sport?">What is your dad's favourite sport?</option>
+                        {{pass}}
+                        {{if ud[0].hintQuestion=="Who is your favourite actor?":}}
+                        <option value="Who is your favourite actor?" selected>Who is your favourite actor?</option>
+                        {{else:}}
+                         <option value="Who is your favourite actor?">Who is your favourite actor?</option>
+                         {{pass}}
+                        {{if ud[0].hintQuestion=="What is your first phone number?":}}
+                        <option value="What is your first phone number?" selected>What is your first phone number?</option>
+                        {{else:}}
+                         <option value="What is your first phone number?">What is your first phone number?</option>
+                    	{{pass}}
+                        
+                        
+                      </tr>
+                      
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Hint Answer </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="password" name="txtHintAnswer" value="{{=ud[0].hintAnswer}}" required/></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Re-type Hint Answer </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="password" name="txtRetypeHintAnswer" value="{{=ud[0].hintAnswer}}" required/></td>
+                      </tr>
+                      <tr>
+                        <td height="25" colspan="2" align="left" valign="middle" bgcolor="#FFFFCC"><strong><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">Personal  Details </font></strong></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">First Name </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtFirstName" value="{{=ud[0].firstName}}" pattern="[a-zA-Z]+[a-zA-Z ]*" required /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Last Name </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtLastName" value="{{=ud[0].lastName}}" pattern="[a-zA-Z]+[a-zA-Z ]*" required /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Gender</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                        {{if ud[0].gender=="male":}}
+                        	<input name="rdoGender" type="radio" value="male" checked="checked" />
+                        	<font size="2" face="Arial, Helvetica, sans-serif">Male</font>
+                        {{else:}}
+                        	<input name="rdoGender" type="radio" value="male" />
+                        	<font size="2" face="Arial, Helvetica, sans-serif">Male</font>                        	
+                        {{pass}}
+                        {{if ud[0].gender=="female":}}                           
+                            	<input name="rdoGender" type="radio" value="female" checked="checked"/> 
+                            	<font size="2" face="Arial, Helvetica, sans-serif">Female</font> </td>
+                        {{else:}}                        
+                            	<input name="rdoGender" type="radio" value="female" /> 
+                            	<font size="2" face="Arial, Helvetica, sans-serif">Female</font> </td>                        
+                        {{pass}}
+                      </tr>
+                     <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Date Of Birth </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+<select name="ddlMonth" required>
+<option value="">Month</option>
+{{
+li=str(ud[0].dateOfBirth).split('-')
+month=li[0]
+for i in range(1,13):
+	if int(month)==i:}}
+		<option value="{{=i}}" selected="selected">{{=i}}</option>
+ 	{{else:}}
+ 		<option value="{{=i}}">{{=i}}</option>
+ 	{{pass}}
+ {{pass}}
+</select> 
+
+<select name="ddlDay" required>
+  <option value="">Day</option>
+{{
+day=li[1]
+for i in range(1,32):
+	if int(day)==i:}}
+		<option value="{{=i}}" selected="selected">{{=i}}</option>
+ 	{{else:}}
+ 		<option value="{{=i}}">{{=i}}</option>
+ 	{{pass}}
+ {{pass}}
+</select>
+
+<select name="ddlYear" required>
+  <option value="">Year</option>
+ {{
+year=li[2]
+for i in range(2013,1899,-1):
+	if int(year)==i:}}
+		<option value="{{=i}}" selected="selected">{{=i}}</option>
+ 	{{else:}}
+ 		<option value="{{=i}}">{{=i}}</option>
+ 	{{pass}}
+ {{pass}}
+</select>
+ </td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Relationship  Status </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><select name="ddlRelationshipStatus">
+                        <option value="Select">Select</option>
+                        {{if ud[0].relationshipStatus=="Single":}}
+				<option value="Single" selected="selected">Single</option>
+		 	{{else:}}
+		 		<option value="Single">Single</option>
+		 	{{pass}}
+		 	{{if ud[0].relationshipStatus=="Married":}}
+				<option value="Married" selected="selected">Married</option>
+		 	{{else:}}
+		 		<option value="Married">Married</option>
+		 	{{pass}}
+		 	{{if ud[0].relationshipStatus=="Divorced":}}
+				<option value="Divorced" selected="selected">Divorced</option>
+		 	{{else:}}
+		 		<option value="Divorced">Divorced</option>
+		 	{{pass}}
+ 	
+                        </select></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">City</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtCity" value="{{=ud[0].city}}" pattern="[a-zA-Z]+[a-zA-Z ]*" required /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">State</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtState" value="{{=ud[0].state}}" pattern="[a-zA-Z]+[a-zA-Z ]*" required /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Country</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtCountry" value="{{=ud[0].country}}" pattern="[a-zA-Z]+[a-zA-Z ]*" required /></td>
+                      </tr>
+                     
+                        <tr>
+                        <td height="25" colspan="2" align="left" valign="middle" bgcolor="#FFFFCC"><strong><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">Educational Details </font></strong></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Schooling</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtSchool"  value="{{=ud[0].school}}" /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif"> </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                       <font size="2" face="Arial, Helvetica, sans-serif">From </font>
+                          
+
+                        <select name="ddlSchoolFrom">
+                        <option>Select</option>
+                        {{
+if ud[0].schoolFrom!="Select":
+			for i in range(2013,1946,-1):
+				if int(ud[0].schoolFrom)==i:}}
+					<option value="{{=i}}" selected="selected">{{=i}}</option>
+			 	{{else:}}
+			 		<option value="{{=i}}">{{=i}}</option>
+			 	{{pass}}
+			 {{pass}}
+{{else:
+
+          for i in range(2013,1946,-1):}}
+			 		<option value="{{=i}}">{{=i}}</option>
+{{pass}}
+{{pass}}
+               </select>
+                       <font size="2" face="Arial, Helvetica, sans-serif">To </font>
+                          <select name="ddlSchoolTo">
+                          <option>Select</option>
+                            {{
+if ud[0].schoolTo!="Select":
+			for i in range(2013,1946,-1):
+				if int(ud[0].schoolTo)==i:}}
+					<option value="{{=i}}" selected="selected">{{=i}}</option>
+			 	{{else:}}
+			 		<option value="{{=i}}">{{=i}}</option>
+			 	{{pass}}
+			 {{pass}}
+{{else:
+
+          for i in range(2013,1946,-1):}}
+			 		<option value="{{=i}}">{{=i}}</option>
+{{pass}}
+{{pass}}
+                          </select></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Twelth</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtTwelth" value="{{=ud[0].twelth}}" /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif"> </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                       <font size="2" face="Arial, Helvetica, sans-serif">From </font>
+                          <select name="ddlTwelthFrom">
+                          <option>Select</option>
+	 {{
+if ud[0].twelthFrom!="Select":
+			for i in range(2013,1946,-1):
+				if int(ud[0].twelthFrom)==i:}}
+					<option value="{{=i}}" selected="selected">{{=i}}</option>
+			 	{{else:}}
+			 		<option value="{{=i}}">{{=i}}</option>
+			 	{{pass}}
+			 {{pass}}
+{{else:
+
+          for i in range(2013,1946,-1):}}
+			 		<option value="{{=i}}">{{=i}}</option>
+{{pass}}
+{{pass}}
+                          </select>
+                       <font size="2" face="Arial, Helvetica, sans-serif">To </font>
+                          <select name="ddlTwelthTo">
+                          <option>Select</option>
+                            {{
+if ud[0].twelthTo!="Select":
+			for i in range(2013,1946,-1):
+				if int(ud[0].twelthTo)==i:}}
+					<option value="{{=i}}" selected="selected">{{=i}}</option>
+			 	{{else:}}
+			 		<option value="{{=i}}">{{=i}}</option>
+			 	{{pass}}
+			 {{pass}}
+{{else:
+
+          for i in range(2013,1946,-1):}}
+			 		<option value="{{=i}}">{{=i}}</option>
+{{pass}}
+{{pass}}
+                          </select></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">UG</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtUG" value="{{=ud[0].ug}}" /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif"> </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                        <font size="2" face="Arial, Helvetica, sans-serif">From </font>
+                          <select name="ddlUGFrom">
+                          <option>Select</option>
+                           {{
+if ud[0].ugFrom!="Select":
+			for i in range(2013,1946,-1):
+				if int(ud[0].ugFrom)==i:}}
+					<option value="{{=i}}" selected="selected">{{=i}}</option>
+			 	{{else:}}
+			 		<option value="{{=i}}">{{=i}}</option>
+			 	{{pass}}
+			 {{pass}}
+{{else:
+
+          for i in range(2013,1946,-1):}}
+			 		<option value="{{=i}}">{{=i}}</option>
+{{pass}}
+{{pass}}
+                          </select>
+                       <font size="2" face="Arial, Helvetica, sans-serif">To </font>
+                          <select name="ddlUGTo">
+                          <option>Select</option>
+                            {{
+if ud[0].ugTo!="Select":
+			for i in range(2013,1946,-1):
+				if int(ud[0].ugTo)==i:}}
+					<option value="{{=i}}" selected="selected">{{=i}}</option>
+			 	{{else:}}
+			 		<option value="{{=i}}">{{=i}}</option>
+			 	{{pass}}
+			 {{pass}}
+{{else:
+
+          for i in range(2013,1946,-1):}}
+			 		<option value="{{=i}}">{{=i}}</option>
+{{pass}}
+{{pass}}
+                          </select></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">PG</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtPG" value="{{=ud[0].pg}}" /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif"> </font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8">
+                        <font size="2" face="Arial, Helvetica, sans-serif">From </font>
+                          <select name="ddlPGFrom">
+                          <option>Select</option>
+                          {{
+if ud[0].pgFrom!="Select":
+			for i in range(2013,1946,-1):
+				if int(ud[0].pgFrom)==i:}}
+					<option value="{{=i}}" selected="selected">{{=i}}</option>
+			 	{{else:}}
+			 		<option value="{{=i}}">{{=i}}</option>
+			 	{{pass}}
+			 {{pass}}
+{{else:
+
+          for i in range(2013,1946,-1):}}
+			 		<option value="{{=i}}">{{=i}}</option>
+{{pass}}
+{{pass}}
+                          </select>
+                       <font size="2" face="Arial, Helvetica, sans-serif">To </font>
+                          <select name="ddlPGTo">
+                          <option>Select</option>
+                           {{
+if ud[0].pgTo!="Select":
+			for i in range(2013,1946,-1):
+				if int(ud[0].pgTo)==i:}}
+					<option value="{{=i}}" selected="selected">{{=i}}</option>
+			 	{{else:}}
+			 		<option value="{{=i}}">{{=i}}</option>
+			 	{{pass}}
+			 {{pass}}
+{{else:
+
+          for i in range(2013,1946,-1):}}
+			 		<option value="{{=i}}">{{=i}}</option>
+{{pass}}
+{{pass}}
+                          </select></td>
+                      </tr>
+                      <tr>
+                        <td height="25" colspan="2" align="left" valign="middle" bgcolor="#FFFFCC"><strong><font color="#000000" size="2" face="Arial, Helvetica, sans-serif">Interests </font></strong></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Books</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtBook" value="{{=ud[0].book}}" /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Sports</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtSport" value="{{=ud[0].sport}}" /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Music</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtMusic" value="{{=ud[0].music}}" /></td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><font size="2" face="Arial, Helvetica, sans-serif">Movies</font></td>
+                        <td align="left" valign="middle" bgcolor="#ECE9D8"><input type="text" name="txtMovie" value="{{=ud[0].movie}}" /></td>
+                      </tr>
+                       <tr>
+                        <td colspan="2" align="left" valign="middle" bgcolor="#ECE9D8">&nbsp;</td>
+                        </tr>
+                      <tr>
+                        <td colspan="2" align="left" valign="middle" bgcolor="#ECE9D8"><div align="center">
+                          <input type="submit" name="btnSubmit" value="Save" /> 
+                        </div></td>
+                        </tr>
+                  </table></td>
+                </tr>
+              </table>
+                        </form>
+            </td>
+          </tr>
+          
+        </table></td>
+        </tr>
+      
+
+    </table></td>
+  </tr>
+  
+</table>
+</body>
+</html>

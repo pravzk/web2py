@@ -1,0 +1,41 @@
+body{
+    background-color:#fccd4d;
+    background-repeat:no-repeat;    
+font-family:arial;
+color:gray;
+}
+ul
+{
+font-family:arial;
+}
+a
+{
+text-decoration:none;
+color:orange;
+}
+#main{
+    
+    border:2px solid black;
+    background-color:white;
+    margin-left:10%;
+    margin-right:10%;
+}
+#leftdiv{
+    float:left;
+    border:2px solid black;
+    width:25%;
+    background-color:white;
+}
+
+#rightdiv{
+    border:2px solid black;
+    background-color:white;
+    margin-left:25%;
+}
+
+#topdiv{
+    
+     margin-left:10%;
+    margin-right:10%;
+    
+}
